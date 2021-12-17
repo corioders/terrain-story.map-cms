@@ -1,0 +1,39 @@
+{
+  "files.exclude": {
+    "out/**/*.map": true,
+  },
+  "path-intellisense.mappings": {
+    "@": "${workspaceRoot}/src",
+  },
+  "eslint.workingDirectories": [
+    {
+      "directory": "${workspaceRoot}",
+      "changeProcessCWD": true
+    }
+  ],
+  "prettier.configPath": ".prettierrc",
+  "commitlint.config.file": "tools/config/commitlint.config.js",
+  "cSpell.words": [
+    "Assemblyscript",
+    "MINVER",
+    "Proto",
+    "Uncapitalize",
+    "assemblyscript",
+    "binaryen",
+    "commitlint",
+    "corejs",
+    "etag",
+    "grpc",
+    "grpcweb",
+    "lookpath",
+    "nodelib",
+    "pinia",
+    "protoc",
+    "toplevel",
+    "unmount",
+    "vuex",
+    "wasm",
+    "webassembly",
+    "webpackbar"
+  ]
+}
