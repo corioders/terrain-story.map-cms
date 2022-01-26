@@ -14,4 +14,5 @@ const games: Game[] = [
 	},
 ];
 Object.freeze(games);
+
 export default games;

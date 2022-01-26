@@ -81,6 +81,7 @@
 	},
 	"dependencies": {
 		"@corioders/vueui": "0.0.11",
+		"firebase": "9.6.4",
 		"pinia": "2.0.5",
 		"vue": "3.2.23",
 		"vue-router": "4.0.12"
