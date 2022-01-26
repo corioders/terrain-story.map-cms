@@ -5,7 +5,6 @@
 		</VFlex>
 	</div>
 </template>
-
 <script lang="ts">
 	import { defineComponent } from 'vue';
 
@@ -17,5 +16,12 @@
 		},
 	});
 </script>
-
-<style lang="scss"></style>
+<style lang="scss">
+	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap');
+	#app {
+		font-family: 'Open Sans', sans-serif;
+		* {
+			box-sizing: border-box;
+		}
+	}
+</style>

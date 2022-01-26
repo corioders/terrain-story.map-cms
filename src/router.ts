@@ -1,12 +1,18 @@
+import { Component } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 
-import TestHello from '@/views/Test.vue';
+import Home from '@/routes/Home.vue';
 
 const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
 		name: 'Home',
-		component: TestHello,
+		component: Home,
+	},
+	{
+		path: '/done',
+		name: 'Done',
+		component: (): Promise<Component> => import('@/routes/Done.vue'),
 	},
 ];
 
