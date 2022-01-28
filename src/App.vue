@@ -1,10 +1,10 @@
 <template>
 	<div id="app">
 		<VFlex gap="12px">
-			<div v-if="$route.name !== 'Login'">
-				<router-link to="/add-floor">Dodaj piętro</router-link>
-				<router-link to="/add-location">Dodaj lokalilację</router-link>
-			</div>
+			<VFlex v-if="$route.name !== 'Login'" direction="row" gap="8px">
+				<VButton @click="$router.push('/add-floor')">Dodaj piętro</VButton>
+				<VButton @click="$router.push('/add-location')">Dodaj lokalilację</VButton>
+			</VFlex>
 
 			<router-view />
 		</VFlex>
@@ -13,11 +13,12 @@
 <script lang="ts">
 	import { defineComponent } from 'vue';
 
-	import { VFlex } from '@corioders/vueui';
+	import { VFlex, VButton } from '@corioders/vueui';
 
 	export default defineComponent({
 		components: {
 			VFlex,
+			VButton,
 		},
 	});
 </script>
