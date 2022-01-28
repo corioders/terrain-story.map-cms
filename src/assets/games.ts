@@ -1,18 +1,17 @@
-export interface Game {
+export interface GameDescriptor {
 	name: string;
 	puzzleIDs: string[];
 }
 
-const games: Game[] = [
+// Name must be the same as name used in the game url.
+export const gameDescriptors: GameDescriptor[] = [
 	{
-		name: 'Santa in Trouble',
+		name: 'santa-in-trouble',
 		puzzleIDs: ['Quiz', 'FestivalsMatching', 'Gaps', 'QuestionTag', 'Carols', 'Rebus'],
 	},
 	{
-		name: 'Poszukiwacze Camienia',
+		name: 'poszukiwacze-camienia',
 		puzzleIDs: ['Archaeologist', 'Dancer', 'Hacker', 'Inspector', 'Mage', 'Princess', 'Tourist', 'Treasurer'],
 	},
 ];
-Object.freeze(games);
-
-export default games;
+Object.freeze(gameDescriptors);

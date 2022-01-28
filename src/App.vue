@@ -1,6 +1,11 @@
 <template>
 	<div id="app">
 		<VFlex gap="12px">
+			<div v-if="$route.name !== 'Login'">
+				<router-link to="/add-floor">Dodaj piętro</router-link>
+				<router-link to="/add-location">Dodaj lokalilację</router-link>
+			</div>
+
 			<router-view />
 		</VFlex>
 	</div>
