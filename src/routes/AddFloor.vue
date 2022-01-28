@@ -3,20 +3,20 @@
 	<h1>Dodawanie piętra:</h1>
 
 	<h1 v-if="!locationsLoaded">Ladowanie</h1>
-	<div v-else>
+	<VFlex v-else gap="12px">
 		<select id="locations" v-model="selectedLocation" name="locations">
 			<option v-for="(location, locationID) in locations" :key="location.name" :value="locationID">{{ location.name }}</option>
 		</select>
 
 		<h1 v-if="selectedLocation === null">Obier lokalilację...</h1>
-		<div v-else>
+		<VFlex v-else gap="12px">
 			<select id="games" v-model="selectedGame" name="games">
 				<option v-for="game in gameDescriptors" :key="game.name" :value="game">{{ game.name }}</option>
 			</select>
 
 			<h1 v-if="selectedGame === null">Obier grę...</h1>
 			<h1 v-else-if="!floorsLoaded">Ladowanie</h1>
-			<div v-else>
+			<VFlex v-else gap="12px">
 				<VInput v-model="inputFloorName" name="nazwa piętra" type="text" />
 				<VButton @click="addFloor">Dodej piętro</VButton>
 
@@ -41,9 +41,9 @@
 				</VCard>
 
 				<SubmitWrapper @submit="submit" />
-			</div>
-		</div>
-	</div>
+			</VFlex>
+		</VFlex>
+	</VFlex>
 </template>
 
 <script lang="ts">

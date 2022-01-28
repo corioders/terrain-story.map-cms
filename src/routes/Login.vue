@@ -1,7 +1,7 @@
 <template>
 	<VInput v-model="inputEmail" name="Email" type="text" />
 	<VInput v-model="inputPassword" name="Hasło" type="password" />
-	<button @click="login">Zaloguj</button>
+	<VButton @click="login">Zaloguj</VButton>
 </template>
 
 <script lang="ts">
@@ -9,11 +9,12 @@
 	import { useRouter } from 'vue-router';
 
 	import { authenticate } from '@/firebase';
-	import { VInput } from '@corioders/vueui';
+	import { VInput, VButton } from '@corioders/vueui';
 
 	export default defineComponent({
 		components: {
 			VInput,
+			VButton,
 		},
 		setup() {
 			const inputEmail = ref('');

@@ -4072,7 +4072,7 @@ findup-sync@^3.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
-firebase@^9.6.4:
+firebase@9.6.4:
   version "9.6.4"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-9.6.4.tgz#7eef29be5421e1aec34ea243a6685fbbb152ca20"
   integrity sha512-f9DpaBeesOKhF1mkAzAmDQ8pWq9VMvjV9y27BDtih+0VrAlHgmGPTt58y9IFZbjQyRsegpuVXjml1hMXe7qG+A==

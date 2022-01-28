@@ -3,7 +3,7 @@
 	<h1>Dodawanie lokalizacji:</h1>
 
 	<h1 v-if="!locationsLoaded">Ladowanie</h1>
-	<div v-else>
+	<VFlex v-else gap="24px">
 		<VInput v-model="inputLocationName" name="nazwa lokalilacji" type="text" />
 		<VInput v-model="inputLocationID" name="id lokalicji (jak nie wiesz co tutaj dać to pisz do Wiktora!!)" type="text" />
 		<VButton @click="addLocation">Dodej lokalilację</VButton>
@@ -16,7 +16,7 @@
 		</VCard>
 
 		<SubmitWrapper @submit="submit" />
-	</div>
+	</VFlex>
 </template>
 
 <script lang="ts">
@@ -26,7 +26,7 @@
 	import SubmitWrapper from '@/components/SubmitWrapper.vue';
 
 	import { getLocations, Locations, setLocations } from '@/firebase';
-	import { VCard, VButton, VInput } from '@corioders/vueui';
+	import { VCard, VButton, VInput, VFlex } from '@corioders/vueui';
 
 	export default defineComponent({
 		name: 'Home',
@@ -34,6 +34,7 @@
 			VCard,
 			VButton,
 			VInput,
+			VFlex,
 			SubmitWrapper,
 		},
 		setup() {
