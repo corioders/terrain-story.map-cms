@@ -1,0 +1,93 @@
+steps:
+  # Get last build commit hash.
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |-
+        gsutil -q stat gs://terrain-story-build-map-cms/sha
+        if [[ $? != 0 ]]; then
+          exit 0
+        fi
+
+        mkdir /workspace/.cloudbuild
+        gsutil cp gs://terrain-story-build-map-cms/sha /workspace/.cloudbuild/map-cms_sha
+
+  # Cancel if we had already build this commit.
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |-
+        if [[ ! -f /workspace/.cloudbuild/map-cms_sha ]]; then
+          exit 0
+        fi
+
+        last_hash=$(cat /workspace/.cloudbuild/map-cms_sha)
+        current_hash=${SHORT_SHA}
+        if [[ ${last_hash} != ${current_hash} ]]; then
+          exit 0
+        fi
+
+        gcloud builds cancel $BUILD_ID
+
+  # Load cache.
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |-
+        gsutil -q stat gs://terrain-story-build-map-cms/cache.tar.gz
+        if [[ $? != 0 ]]; then
+          exit 0
+        fi
+
+        gsutil cp gs://terrain-story-build-map-cms/cache.tar.gz cache.tar.gz
+        tar -x --warning=no-timestamp -f cache.tar.gz .
+
+  # Install dependencies.
+  - name: 'node'
+    env:
+      - |-
+        SKIP_POSTINSTALL=1
+    entrypoint: 'yarn'
+    args: ['install']
+
+  # Build.
+  - name: 'node'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |-
+        yarn produce
+
+  # Save build output to target bucket.
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |-
+        # Save commit sha was builded.
+        gsutil cp <(echo ${SHORT_SHA}) gs://terrain-story-build-map-cms/sha
+
+        # Store build result in the target bucket.
+        gsutil cp ./out gs://terrain-story-map-cms
+
+  # Save cache.
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |-
+        # Tar node_modules, use some flags to make this output idempotent.
+        tar -c --sort=name --owner=root:0 --group=root:0 --mtime='UTC 1969-07-24 20:17' ./node_modules | gzip -n > cache.tar.gz
+
+        remote_hash=$(gsutil -q hash -m gs://terrain-story-build-map-cms/cache.tar.gz | awk '/Hash \(md5\)/{print $3}')
+        local_hash=$(gsutil -q hash -m ./cache.tar.gz | awk '/Hash \(md5\)/{print $3}')
+
+        # Send data only when it has changed.
+        if [[ "${remote_hash}" == "${local_hash}" ]]; then
+          exit 0
+        fi
+
+        gsutil cp ./cache.tar.gz gs://terrain-story-build-map-cms/cache.tar.gz
