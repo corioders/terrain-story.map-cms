@@ -53,6 +53,7 @@ export async function isAuthenticated(): Promise<boolean> {
 // @ts-ignore
 window.a = authenticate;
 
+// Below code must be keep in sync with ...
 async function getGameReference(locationID: string, gameName: string): Promise<DocumentReference<DocumentData>> {
 	const db = getFirestore(app);
 	const mapCms = collection(db, 'map-cms');
@@ -82,6 +83,7 @@ export async function getFloors(locationID: string, gameName: string): Promise<F
 
 	return floors;
 }
+// Keep in sync section end
 
 export async function setFloors(locationID: string, gameName: string, floors: Floor[]): Promise<void> {
 	const gameReference = await getGameReference(locationID, gameName);
