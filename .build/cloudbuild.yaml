@@ -71,7 +71,8 @@ steps:
         gsutil cp <(echo ${SHORT_SHA}) gs://terrain-story-build-map-cms/sha
 
         # Store build result in the target bucket.
-        gsutil cp -r ./out gs://terrain-story-map-cms
+        cd ./out
+        gsutil rsync -d -r . gs://terrain-story-map-cms
 
   # Save cache.
   - name: 'gcr.io/cloud-builders/gsutil'
