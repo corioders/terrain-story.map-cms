@@ -53,7 +53,7 @@ export async function isAuthenticated(): Promise<boolean> {
 // @ts-ignore
 window.a = authenticate;
 
-// Below code must be keep in sync with ...
+// Below code must be keep in sync with https://github.com/corioders/terrain-story.frontend/blob/master/src/components/map/floor/floorMap.ts
 async function getGameReference(locationID: string, gameName: string): Promise<DocumentReference<DocumentData>> {
 	const db = getFirestore(app);
 	const mapCms = collection(db, 'map-cms');
