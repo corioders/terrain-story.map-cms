@@ -25,7 +25,7 @@
 
 	import SubmitWrapper from '@/components/SubmitWrapper.vue';
 
-	import { getLocations, Locations, setLocations } from '@/firebase';
+	import { getLocations, Locations, setLocations } from './firebase';
 	import { VCard, VButton, VInput, VFlex } from '@corioders/vueui';
 
 	export default defineComponent({

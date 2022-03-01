@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 
-import AddFloor from '@/routes/AddFloor.vue';
-import AddLocation from '@/routes/AddLocation.vue';
 import Home from '@/routes/Home.vue';
 import Login from '@/routes/Login.vue';
 import Sent from '@/routes/Sent.vue';
+import AddFloor from '@/routes/floorMap/AddFloor.vue';
+import AddLocation from '@/routes/floorMap/AddLocation.vue';
 
-import { isAuthenticated } from '@/firebase';
+import { isAuthenticated } from '@/firebase/auth';
 
 const routes: RouteRecordRaw[] = [
 	{

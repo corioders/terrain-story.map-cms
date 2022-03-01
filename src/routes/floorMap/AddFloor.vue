@@ -53,8 +53,9 @@
 	import SubmitWrapper from '@/components/SubmitWrapper.vue';
 
 	import { GameDescriptor, gameDescriptors } from '@/assets/games';
-	import { Floor, getFloors, getLocations, setFloors, Location, Locations } from '@/firebase';
 	import { VFlex, VCard, VButton, VInput } from '@corioders/vueui';
+
+	import { Floor, getFloors, getLocations, setFloors, Location, Locations } from './firebase';
 
 	function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): void {
 		let element = arr[fromIndex];

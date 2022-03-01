@@ -1,9 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { browserLocalPersistence, indexedDBLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 import { getFirestore, collection } from 'firebase/firestore';
 import { doc, getDocs, getDoc, setDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
+
+import '@/firebase/init';
 
 export interface Location {
 	name: string;
@@ -16,42 +15,9 @@ export interface Floor {
 	puzzleIDs: string[];
 }
 
-const app = initializeApp({
-	apiKey: 'AIzaSyDOlR963Jp-FjS_upzGyoyrY8X7RB5f5bI',
-	projectId: 'core-folio-327613',
-});
-
-const auth = initializeAuth(app, {
-	persistence: [browserLocalPersistence, indexedDBLocalPersistence, browserSessionPersistence],
-});
-
-export async function authenticate(email: string, password: string): Promise<void> {
-	await signInWithEmailAndPassword(auth, email, password);
-}
-
-let isAuth = false;
-
-let isAuthPromiseResolve: () => void;
-const isAuthPromise = new Promise<void>((resolve) => (isAuthPromiseResolve = resolve));
-
-auth.onAuthStateChanged((user) => {
-	if (user === null) {
-		isAuth = false;
-		isAuthPromiseResolve();
-	} else {
-		isAuth = true;
-		isAuthPromiseResolve();
-	}
-});
-
-export async function isAuthenticated(): Promise<boolean> {
-	await isAuthPromise;
-	return isAuth;
-}
-
 // Below code must be keep in sync with https://github.com/corioders/terrain-story.frontend/blob/master/src/components/map/floor/floorMap.ts
 async function getGameReference(locationID: string, gameName: string): Promise<DocumentReference<DocumentData>> {
-	const db = getFirestore(app);
+	const db = getFirestore();
 	const mapCms = collection(db, 'map-cms');
 
 	const locationSnapshot = await getDoc(doc(mapCms, locationID));
@@ -99,7 +65,7 @@ export async function setFloors(locationID: string, gameName: string, floors: Fl
 }
 
 export async function getLocations(): Promise<Locations> {
-	const db = getFirestore(app);
+	const db = getFirestore();
 	const mapCms = collection(db, 'map-cms');
 	const locationsSnapshot = await getDocs(mapCms);
 
@@ -117,7 +83,7 @@ export async function setLocations(locations: Locations): Promise<void> {
 	const additionalLocations = [];
 	for (const locationID in locations) if (originalLocations[locationID] === undefined) additionalLocations.push(locationID);
 
-	const db = getFirestore(app);
+	const db = getFirestore();
 	const mapCms = collection(db, 'map-cms');
 
 	await Promise.all(
