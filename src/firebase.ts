@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { browserLocalPersistence, indexedDBLocalPersistence, browserSessionPersistence } from 'firebase/auth';
-import { getFirestore, collection } from 'firebase/firestore';
-import { doc, getDocs, getDoc, setDoc, addDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, query } from 'firebase/firestore';
+import { doc, getDocs, getDoc, setDoc, addDoc, deleteDoc, orderBy } from 'firebase/firestore';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
 
 export interface Location {
@@ -12,6 +12,7 @@ export interface Locations {
 	[locationID: string]: Location;
 }
 export interface Floor {
+	index?: number;
 	name: string;
 	puzzleIDs: string[];
 }
@@ -70,7 +71,7 @@ export async function getFloors(locationID: string, gameName: string): Promise<F
 		return [];
 	}
 
-	const floorsSnapshot = await getDocs(collection(gameSnapshot.ref, 'floors'));
+	const floorsSnapshot = await getDocs(query(collection(gameSnapshot.ref, 'floors'), orderBy('index')));
 	const floors: Floor[] = await Promise.all(
 		floorsSnapshot.docs.map(async (floorDoc) => {
 			return floorDoc.data() as Floor;
@@ -95,7 +96,12 @@ export async function setFloors(locationID: string, gameName: string, floors: Fl
 	await Promise.all(floorsSnapshot.docs.map((floorDoc) => deleteDoc(floorDoc.ref)));
 
 	// Add our new one's.
-	await Promise.all(floors.map((floor) => addDoc(floorsCollection, floor)));
+	const floorPromises = [];
+	for (let i = 0; i < floors.length; i++) {
+		floors[i].index = i;
+		floorPromises.push(addDoc(floorsCollection, floors[i]));
+	}
+	await Promise.all(floorPromises);
 }
 
 export async function getLocations(): Promise<Locations> {
