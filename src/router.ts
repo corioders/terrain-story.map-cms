@@ -5,6 +5,9 @@ import Login from '@/routes/Login.vue';
 import Sent from '@/routes/Sent.vue';
 import AddFloor from '@/routes/floorMap/AddFloor.vue';
 import AddLocation from '@/routes/floorMap/AddLocation.vue';
+import AddQuestion from '@/routes/preexamRecap/AddQuestion.vue';
+import PreexamRecap from '@/routes/preexamRecap/PreexamRecap.vue';
+import ShowQuestions from '@/routes/preexamRecap/ShowQuestions.vue';
 
 import { isAuthenticated } from '@/firebase/auth';
 
@@ -28,6 +31,23 @@ const routes: RouteRecordRaw[] = [
 		path: '/add-location',
 		name: 'AddLocation',
 		component: AddLocation,
+	},
+	{
+		path: '/preexam-recap',
+		name: 'PreexamRecap',
+		component: PreexamRecap,
+		children: [
+			{
+				path: '/preexam-recap/add-question',
+				name: 'AddQuestion',
+				component: AddQuestion,
+			},
+			{
+				path: '/preexam-recap/show-questions',
+				name: 'ShowQuestions',
+				component: ShowQuestions,
+			},
+		],
 	},
 	{
 		path: '/sent',

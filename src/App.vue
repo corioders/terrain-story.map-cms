@@ -4,6 +4,7 @@
 			<VFlex v-if="$route.name !== 'Login'" direction="row" gap="8px">
 				<VButton @click="$router.push('/add-floor')">Dodaj piętro</VButton>
 				<VButton @click="$router.push('/add-location')">Dodaj lokalilację</VButton>
+				<VButton @click="$router.push('/preexam-recap')">"Wygraj Maturę"</VButton>
 			</VFlex>
 
 			<router-view />
