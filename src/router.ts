@@ -1,12 +1,16 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 
-import AddFloor from '@/routes/AddFloor.vue';
-import AddLocation from '@/routes/AddLocation.vue';
 import Home from '@/routes/Home.vue';
 import Login from '@/routes/Login.vue';
 import Sent from '@/routes/Sent.vue';
+import AddFloor from '@/routes/floorMap/AddFloor.vue';
+import AddLocation from '@/routes/floorMap/AddLocation.vue';
+import FloorMap from '@/routes/floorMap/FloorMap.vue';
+import AddQuestion from '@/routes/preexamRecap/AddQuestion.vue';
+import PreexamRecap from '@/routes/preexamRecap/PreexamRecap.vue';
+import ShowQuestions from '@/routes/preexamRecap/ShowQuestions.vue';
 
-import { isAuthenticated } from '@/firebase';
+import { isAuthenticated } from '@/firebase/auth';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -20,14 +24,38 @@ const routes: RouteRecordRaw[] = [
 		component: Login,
 	},
 	{
-		path: '/add-floor',
-		name: 'AddFloor',
-		component: AddFloor,
+		path: '/floor-map',
+		name: 'FloorMap',
+		component: FloorMap,
+		children: [
+			{
+				path: '/floor-map/add-floor',
+				name: 'AddFloor',
+				component: AddFloor,
+			},
+			{
+				path: '/floor-map/add-location',
+				name: 'AddLocation',
+				component: AddLocation,
+			},
+		],
 	},
 	{
-		path: '/add-location',
-		name: 'AddLocation',
-		component: AddLocation,
+		path: '/preexam-recap',
+		name: 'PreexamRecap',
+		component: PreexamRecap,
+		children: [
+			{
+				path: '/preexam-recap/add-question',
+				name: 'AddQuestion',
+				component: AddQuestion,
+			},
+			{
+				path: '/preexam-recap/show-questions',
+				name: 'ShowQuestions',
+				component: ShowQuestions,
+			},
+		],
 	},
 	{
 		path: '/sent',

@@ -8,7 +8,7 @@
 	import { defineComponent, ref } from 'vue';
 	import { useRouter } from 'vue-router';
 
-	import { authenticate } from '@/firebase';
+	import { authenticate } from '@/firebase/auth';
 	import { VInput, VButton } from '@corioders/vueui';
 
 	export default defineComponent({
