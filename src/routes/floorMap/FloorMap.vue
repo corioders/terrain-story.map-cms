@@ -1,7 +1,7 @@
 <template>
 	<VFlex direction="row" gap="12px">
-		<VButton @click="$router.push('/preexam-recap/add-question')">Dodaj zagadkę</VButton>
-		<VButton @click="$router.push('/preexam-recap/show-questions')">Zobacz zagadki</VButton>
+		<VButton @click="$router.push('/floor-map/add-floor')">Dodaj piętro</VButton>
+		<VButton @click="$router.push('/floor-map/add-location')">Zobacz lokalizację</VButton>
 	</VFlex>
 	<router-view />
 </template>
@@ -12,7 +12,7 @@
 	import { VButton, VFlex } from '@corioders/vueui';
 
 	export default defineComponent({
-		name: 'PreexamRecap',
+		name: 'FloorMap',
 		components: {
 			VButton,
 			VFlex,

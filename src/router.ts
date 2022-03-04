@@ -5,6 +5,7 @@ import Login from '@/routes/Login.vue';
 import Sent from '@/routes/Sent.vue';
 import AddFloor from '@/routes/floorMap/AddFloor.vue';
 import AddLocation from '@/routes/floorMap/AddLocation.vue';
+import FloorMap from '@/routes/floorMap/FloorMap.vue';
 import AddQuestion from '@/routes/preexamRecap/AddQuestion.vue';
 import PreexamRecap from '@/routes/preexamRecap/PreexamRecap.vue';
 import ShowQuestions from '@/routes/preexamRecap/ShowQuestions.vue';
@@ -23,14 +24,21 @@ const routes: RouteRecordRaw[] = [
 		component: Login,
 	},
 	{
-		path: '/add-floor',
-		name: 'AddFloor',
-		component: AddFloor,
-	},
-	{
-		path: '/add-location',
-		name: 'AddLocation',
-		component: AddLocation,
+		path: '/floor-map',
+		name: 'FloorMap',
+		component: FloorMap,
+		children: [
+			{
+				path: '/floor-map/add-floor',
+				name: 'AddFloor',
+				component: AddFloor,
+			},
+			{
+				path: '/floor-map/add-location',
+				name: 'AddLocation',
+				component: AddLocation,
+			},
+		],
 	},
 	{
 		path: '/preexam-recap',
