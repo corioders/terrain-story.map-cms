@@ -71,7 +71,7 @@
 			}
 
 			async function submit(): Promise<void> {
-				question.value.descriptor.isHtml = Boolean(isHtmlString.value);
+				question.value.descriptor.isHtml = isHtmlString.value === 'true' ? true : false;
 				await submitQuestion(question.value);
 				router.push('/sent');
 			}
