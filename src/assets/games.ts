@@ -15,7 +15,7 @@ export const gameDescriptors: GameDescriptor[] = [
 	},
 	{
 		name: 'pomoz-abelardowi',
-		puzzleIDs: ['Bingo', 'Emotions1', 'Emotions2', 'Jacobson', 'Rebus', 'Matching1', 'Matching2', 'PhoneNumbers'],
+		puzzleIDs: ['Emotions', 'Jacobson', 'Rebus', 'PhoneNumbers', 'PsiColoring', 'Word'],
 	},
 	{
 		name: 'wygraj-mature',
