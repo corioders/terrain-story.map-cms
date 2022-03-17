@@ -5,14 +5,19 @@
 	<h1 v-if="!locationsLoaded">Ladowanie</h1>
 	<VFlex v-else gap="24px">
 		<VInput v-model="inputLocationName" name="nazwa lokalilacji" type="text" />
+		<VInput v-model="inputFriendlyLocationName" name="przyjazna dla użytkownika nazwa lokalilacji" type="text" />
+		<VInput v-model="inputLatitude" name="latitude lokalicji" type="text" />
+		<VInput v-model="inputLongitude" name="longitude lokalicji" type="text" />
+
 		<VInput v-model="inputLocationID" name="id lokalicji (jak nie wiesz co tutaj dać to pisz do Wiktora!!)" type="text" />
 		<VButton @click="addLocation">Dodej lokalilację</VButton>
 
 		<VCard v-for="(location, locationID) in locations" :key="`location${locationID}-${location.name}`">
-			Nazwa:
-			<p>{{ location.name }}</p>
-			ID:
-			<p>{{ locationID }}</p>
+			<p>Nazwa: {{ location.name }}</p>
+			<p>Przyjazna nazwa: {{ location.friendlyName }}</p>
+			<p>Latitude: {{ location.latitude }}</p>
+			<p>Longitude: {{ location.longitude }}</p>
+			<p>ID: {{ locationID }}</p>
 		</VCard>
 
 		<SubmitWrapper @submit="submit" />
@@ -25,8 +30,9 @@
 
 	import SubmitWrapper from '@/components/SubmitWrapper.vue';
 
-	import { getLocations, Locations, setLocations } from './firebase';
 	import { VCard, VButton, VInput, VFlex } from '@corioders/vueui';
+
+	import { getLocations, Locations, setLocations } from './firebase';
 
 	export default defineComponent({
 		name: 'Home',
@@ -40,6 +46,9 @@
 		setup() {
 			const inputLocationName = ref('');
 			const inputLocationID = ref('');
+			const inputFriendlyLocationName = ref('');
+			const inputLatitude = ref('');
+			const inputLongitude = ref('');
 
 			const locationsLoaded = ref<boolean>(false);
 			const locations = ref<Locations>({});
@@ -53,6 +62,18 @@
 					alert('Prosza nazwać lokalicję...');
 					return;
 				}
+				if (inputFriendlyLocationName.value === '') {
+					alert('Prosza nadać przyjazną nazwę lokalicji...');
+					return;
+				}
+				if (inputLatitude.value === '') {
+					alert('Prosza podać latitude lokalicji...');
+					return;
+				}
+				if (inputLongitude.value === '') {
+					alert('Prosza podać longitude lokalicji...');
+					return;
+				}
 
 				if (locations.value[inputLocationID.value] !== undefined) {
 					alert('Lokalizacja o takim ID już istnieje...');
@@ -60,6 +81,9 @@
 
 				locations.value[inputLocationID.value] = {
 					name: inputLocationName.value,
+					friendlyName: inputFriendlyLocationName.value,
+					latitude: inputLatitude.value,
+					longitude: inputLongitude.value,
 				};
 			}
 
@@ -69,7 +93,17 @@
 				router.push('/sent');
 			}
 
-			return { locations, addLocation, locationsLoaded, inputLocationName, inputLocationID, submit };
+			return {
+				addLocation,
+				submit,
+				locations,
+				locationsLoaded,
+				inputLocationName,
+				inputLocationID,
+				inputFriendlyLocationName,
+				inputLatitude,
+				inputLongitude,
+			};
 		},
 	});
 </script>

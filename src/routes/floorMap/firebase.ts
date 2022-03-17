@@ -1,6 +1,3 @@
-import { initializeApp } from 'firebase/app';
-import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { browserLocalPersistence, indexedDBLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 import { getFirestore, collection, query } from 'firebase/firestore';
 import { doc, getDocs, getDoc, setDoc, addDoc, deleteDoc, orderBy } from 'firebase/firestore';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
@@ -9,6 +6,9 @@ import '@/firebase/init';
 
 export interface Location {
 	name: string;
+	friendlyName: string;
+	latitude: string;
+	longitude: string;
 }
 export interface Locations {
 	[locationID: string]: Location;
