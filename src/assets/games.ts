@@ -21,5 +21,9 @@ export const gameDescriptors: GameDescriptor[] = [
 		name: 'wygraj-mature',
 		puzzleIDs: ['1', '2', '3', '4', '5', '6'],
 	},
+	{
+		name: 'wygraj-mature',
+		puzzleIDs: ['btc', 'karta', 'crypto', 'inflacja', 'roznice', 'rebus'],
+	},
 ];
 Object.freeze(gameDescriptors);
