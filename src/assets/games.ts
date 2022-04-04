@@ -22,7 +22,7 @@ export const gameDescriptors: GameDescriptor[] = [
 		puzzleIDs: ['1', '2', '3', '4', '5', '6'],
 	},
 	{
-		name: 'wygraj-mature',
+		name: 'finansowe-zaskoczenie',
 		puzzleIDs: ['btc', 'karta', 'crypto', 'inflacja', 'roznice', 'rebus'],
 	},
 ];
