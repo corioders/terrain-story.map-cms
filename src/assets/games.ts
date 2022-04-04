@@ -23,7 +23,7 @@ export const gameDescriptors: GameDescriptor[] = [
 	},
 	{
 		name: 'finansowe-zaskoczenie',
-		puzzleIDs: ['btc', 'karta', 'crypto', 'inflacja', 'roznice', 'rebus'],
+		puzzleIDs: ['Btc', 'Card', 'Crypto', 'Inflation', 'PhotoDifferences', 'Rebus'],
 	},
 ];
 Object.freeze(gameDescriptors);
